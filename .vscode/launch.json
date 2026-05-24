@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Appium Flutter Demo (Debug)",
+      "cwd": "${workspaceFolder}/appium_flutter_demo",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Appium Flutter Demo (Run)",
+      "cwd": "${workspaceFolder}/appium_flutter_demo",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "debug",
+      "noDebug": true
+    },
+    {
+      "name": "Appium Flutter Demo (Release)",
+      "cwd": "${workspaceFolder}/appium_flutter_demo",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "release"
+    }
+  ]
+}
