@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:appium_flutter_demo/app/router/app_routes.dart';
 import 'package:appium_flutter_demo/core/constants/app_keys.dart';
+import 'package:appium_flutter_demo/core/constants/app_semantics.dart';
 import 'package:appium_flutter_demo/core/constants/app_strings.dart';
 import 'package:appium_flutter_demo/core/widgets/app_button.dart';
 import 'package:appium_flutter_demo/core/widgets/app_scaffold.dart';
@@ -73,6 +74,7 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
           children: [
             AppTextField(
               inputKey: AppKeys.formNameInput,
+              semanticsLabel: AppSemantics.formNameInput,
               label: AppStrings.nameLabel,
               controller: _nameController,
               textInputAction: TextInputAction.next,
@@ -86,6 +88,7 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
             const SizedBox(height: 16),
             AppTextField(
               inputKey: AppKeys.formAmountInput,
+              semanticsLabel: AppSemantics.formAmountInput,
               label: AppStrings.amountLabel,
               controller: _amountController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -108,6 +111,7 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
             const SizedBox(height: 16),
             AppTextField(
               inputKey: AppKeys.formDescriptionInput,
+              semanticsLabel: AppSemantics.formDescriptionInput,
               label: AppStrings.descriptionLabel,
               controller: _descriptionController,
               textInputAction: TextInputAction.done,
@@ -115,15 +119,22 @@ class _TransferFormScreenState extends State<TransferFormScreen> {
             ),
             if (_errorMessage != null) ...[
               const SizedBox(height: 16),
-              Text(
-                _errorMessage!,
-                key: AppKeys.formErrorText,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              Semantics(
+                label: AppSemantics.formErrorText,
+                container: true,
+                child: ExcludeSemantics(
+                  child: Text(
+                    _errorMessage!,
+                    key: AppKeys.formErrorText,
+                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                  ),
+                ),
               ),
             ],
             const Spacer(),
             AppButton(
               buttonKey: AppKeys.formSubmitButton,
+              semanticsLabel: AppSemantics.formSubmitButton,
               label: AppStrings.confirmButton,
               onPressed: _submit,
             ),

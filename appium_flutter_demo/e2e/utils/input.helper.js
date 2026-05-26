@@ -1,24 +1,47 @@
+const { isIOS } = require('./platform.helper');
+
 /**
  * Platform-aware text input for Flutter Semantics fields.
  * Android: click + mobile: type (UiAutomator2)
- * iOS: click + setValue (XCUITest)
+ * iOS: click + setValue (XCUITest), with safe fallbacks
  */
-async function typeInto(element, value) {
-    const platform = (driver.capabilities.platformName || '').toLowerCase();
+async function typeInto(target, value) {
+    const element = typeof target === 'string'
+        ? await $(`~${target}`)
+        : target;
 
+    await element.waitForDisplayed({ timeout: 10000 });
     await element.click();
 
-    if (platform === 'ios') {
+    if (isIOS()) {
         try {
             await element.clearValue();
         } catch {
             // Semantics wrappers may not support clearValue.
         }
-        await element.setValue(value);
-        return;
+
+        try {
+            await element.setValue(value);
+            return;
+        } catch {
+            await element.addValue(value);
+            return;
+        }
     }
 
-    await driver.execute('mobile: type', { text: value });
+    try {
+        await driver.execute('mobile: type', { text: value });
+    } catch {
+        await element.setValue(value);
+    }
 }
 
-module.exports = { typeInto };
+async function hideKeyboardSafe() {
+    try {
+        await driver.hideKeyboard();
+    } catch {
+        // Keyboard may already be hidden or unsupported on this screen.
+    }
+}
+
+module.exports = { typeInto, hideKeyboardSafe };

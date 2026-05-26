@@ -229,6 +229,49 @@ El spec `test/specs/login.e2e.js` automatiza:
 5. Verificar que `home_title` esté visible en Home
 6. Capturar screenshot de Home
 
+## Automated Flows
+
+Suite E2E cross-platform (Android UiAutomator2 + iOS XCUITest) con locators `~accessibility_id`.
+
+| Flow | Spec | Descripción |
+| ---- | ---- | ----------- |
+| Login smoke | `login.e2e.js` | Login demo y verificación de Home |
+| Login validations | `login-validation.e2e.js` | Credenciales inválidas y campos vacíos |
+| Full transfer flow | `full-flow.e2e.js` | Login → Home → Lista → Detalle → Formulario → Confirmación → Home |
+
+### Comandos Android
+
+```bash
+cd appium_flutter_demo/e2e
+npm run test:android:login
+npm run test:android:validation
+npm run test:android:full
+npm run test:android:all
+```
+
+### Comandos iOS
+
+```bash
+cd appium_flutter_demo/e2e
+npm run test:ios:login
+npm run test:ios:validation
+npm run test:ios:full
+npm run test:ios:all
+```
+
+### Screenshots del flujo completo
+
+| Archivo | Pantalla |
+| ------- | -------- |
+| `full-flow-login.png` | Login |
+| `full-flow-home.png` | Home |
+| `full-flow-list.png` | Lista de operaciones |
+| `full-flow-detail.png` | Detalle |
+| `full-flow-form.png` | Formulario de transferencia |
+| `full-flow-confirmation.png` | Confirmación |
+
+Helpers reutilizables en `e2e/utils/`: `input.helper.js`, `flow.helper.js`, `platform.helper.js`, `screenshot.helper.js`.
+
 ## Screenshots automáticos
 
 Los tests E2E generan evidencia visual del emulador Android durante la ejecución. Las capturas se guardan en `appium_flutter_demo/e2e/screenshots/` y son útiles para debugging local, pipelines CI/CD y reportes QA.
@@ -378,7 +421,7 @@ ls ../build/ios/iphonesimulator/Runner.app
 2. ✅ Agregar Appium (estructura E2E + login automatizado)
 3. ✅ Migrar a UiAutomator2 + Semantics
 4. ✅ Soporte iOS (XCUITest)
-5. ⬜ Automatizar flujo completo
+5. ✅ Flujos E2E cross-platform (login, validaciones, transferencia completa)
 6. ⬜ Preparar publicación LinkedIn
 
 ## Licencia

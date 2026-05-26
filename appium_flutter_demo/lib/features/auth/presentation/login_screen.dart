@@ -93,10 +93,12 @@ class _LoginScreenState extends State<LoginScreen> {
               Semantics(
                 label: AppSemantics.loginErrorText,
                 container: true,
-                child: Text(
-                  _errorMessage!,
-                  key: AppKeys.loginErrorText,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                child: ExcludeSemantics(
+                  child: Text(
+                    _errorMessage!,
+                    key: AppKeys.loginErrorText,
+                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                  ),
                 ),
               ),
             ],

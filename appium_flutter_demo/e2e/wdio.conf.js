@@ -5,7 +5,7 @@ exports.config = {
     runner: 'local',
     port: 4723,
 
-    specs: ['./test/specs/login.e2e.js'],
+    specs: ['./test/specs/**/*.js'],
     exclude: [],
     maxInstances: 1,
 
