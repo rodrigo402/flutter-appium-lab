@@ -1,4 +1,5 @@
 import 'package:appium_flutter_demo/core/constants/app_keys.dart';
+import 'package:appium_flutter_demo/core/constants/app_semantics.dart';
 import 'package:appium_flutter_demo/features/items/domain/item_model.dart';
 
 const mockItems = [
@@ -31,4 +32,11 @@ const itemCardKeys = [
   AppKeys.itemCard1,
   AppKeys.itemCard2,
   AppKeys.itemCard3,
+];
+
+/// Maps each mock item to its accessibility label.
+const itemCardSemantics = [
+  AppSemantics.itemCard1,
+  AppSemantics.itemCard2,
+  AppSemantics.itemCard3,
 ];

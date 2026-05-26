@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:appium_flutter_demo/app/router/app_routes.dart';
 import 'package:appium_flutter_demo/core/constants/app_keys.dart';
+import 'package:appium_flutter_demo/core/constants/app_semantics.dart';
 import 'package:appium_flutter_demo/core/constants/app_strings.dart';
 import 'package:appium_flutter_demo/core/widgets/app_button.dart';
 import 'package:appium_flutter_demo/core/widgets/app_scaffold.dart';
@@ -21,11 +22,17 @@ class ItemDetailScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            item.title,
-            key: AppKeys.detailTitle,
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
+          Semantics(
+            label: AppSemantics.detailTitle,
+            container: true,
+            child: ExcludeSemantics(
+              child: Text(
+                item.title,
+                key: AppKeys.detailTitle,
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -43,6 +50,7 @@ class ItemDetailScreen extends StatelessWidget {
           const Spacer(),
           AppButton(
             buttonKey: AppKeys.detailContinueButton,
+            semanticsLabel: AppSemantics.detailContinueButton,
             label: AppStrings.itemDetailContinue,
             onPressed: () {
               Navigator.pushNamed(

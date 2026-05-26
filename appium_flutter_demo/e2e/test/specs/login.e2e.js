@@ -1,5 +1,5 @@
 const { takeScreenshot } = require('../../utils/screenshot.helper');
-const { typeInto } = require('../../utils/input.helper');
+const { typeInto, hideKeyboardSafe } = require('../../utils/input.helper');
 
 describe('Login E2E', () => {
     afterEach(async function () {
@@ -20,7 +20,7 @@ describe('Login E2E', () => {
         await typeInto(passwordInput, '123456');
 
         try {
-            await driver.hideKeyboard();
+            await hideKeyboardSafe();
         } catch {
             // Keyboard may already be hidden on some devices.
         }

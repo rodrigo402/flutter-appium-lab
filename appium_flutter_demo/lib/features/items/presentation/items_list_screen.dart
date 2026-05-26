@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:appium_flutter_demo/app/router/app_routes.dart';
 import 'package:appium_flutter_demo/core/constants/app_keys.dart';
+import 'package:appium_flutter_demo/core/constants/app_semantics.dart';
 import 'package:appium_flutter_demo/core/constants/app_strings.dart';
 import 'package:appium_flutter_demo/core/widgets/app_scaffold.dart';
 import 'package:appium_flutter_demo/features/items/data/mock_items.dart';
@@ -17,12 +18,18 @@ class ItemsListScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            AppStrings.itemsListTitle,
-            key: AppKeys.itemsListTitle,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+          Semantics(
+            label: AppSemantics.itemsListTitle,
+            container: true,
+            child: ExcludeSemantics(
+              child: Text(
+                AppStrings.itemsListTitle,
+                key: AppKeys.itemsListTitle,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           Expanded(
@@ -32,17 +39,21 @@ class ItemsListScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = mockItems[index];
 
-                return KeyedSubtree(
-                  key: itemCardKeys[index],
-                  child: ItemCard(
-                    item: item,
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.itemDetail,
-                        arguments: item,
-                      );
-                    },
+                return Semantics(
+                  label: itemCardSemantics[index],
+                  button: true,
+                  child: KeyedSubtree(
+                    key: itemCardKeys[index],
+                    child: ItemCard(
+                      item: item,
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.itemDetail,
+                          arguments: item,
+                        );
+                      },
+                    ),
                   ),
                 );
               },
